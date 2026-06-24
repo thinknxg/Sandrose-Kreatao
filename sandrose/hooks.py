@@ -23,45 +23,6 @@ app_license = "mit"
 
 # Includes in <head>
 # ------------------
-fixtures = [
-    {
-        "doctype":"Custom Field",
-        "filters":[
-            [
-                "name",
-                "in",
-                [
-                    "Retention Bonus-custom_project",
-                    "Retention Bonus-custom_cost_center",
-                    "Attendance-custom_project",
-                    "Attendance-custom_cost_center",
-                    "Employee-custom_first_day_of_joining",
-                    "Employee-custom_section_break_f7wph",
-                    "Employee-custom_vacation_details",
-                    "Employee-custom_rejoining",
-                    "Employee-custom_flight_rate",
-                    "Employee-custom_gratuity_rate",
-                    "Attendance-custom_overtime_hours",
-                    "Employee-custom_overtime_rate",
-                    "Attendance-custom_overtime_rate",
-                    "Attendance-custom_overtime_amount",
-                    "Attendance-custom_salary_amount",
-                    "Project-custom_total_cost",
-                    "Expense Entry-custom_employee_name",
-                    "Expense Entry-custom_license_plate",
-                    "Expense Entry-custom_vehicle_log_id",
-                    "Expense Entry-custom_journal_entry_id",
-                    "Purchase Order-custom_section_break_8w3q6",
-                    "Purchase Order-custom_item_transaction_details",
-                    "Sales Invoice-custom_section_break_dbm3p",
-                    "Sales Invoice-custom_item_transaction_details",
-                    "Quotation-custom_section_break_zqvlz",
-                    "Quotation-custom_item_transaction_details",
-                    "Employee-custom_labour_card_designation"
-                ]
-            ]    
-        ]
-    }]
 
 
 # include js, css files in header of desk.html
@@ -87,6 +48,7 @@ fixtures = [
 doctype_js = {
     "Salary Slip" : "public/js/salary_slip.js",
     "Employee" : "public/js/employee.js",
+    "Leave Application" : "public/js/leave_application.js",
     "Payroll Entry" : "public/js/payroll_entry.js",
     "Project" : "public/js/project.js",
     "Vehicle Log" : "public/js/vehicle_log.js",
@@ -183,7 +145,8 @@ doctype_js = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Retention Bonus":"sandrose.sandrose.custom_script.retention_bonus.CustomRetentionBonus"
+	"Retention Bonus": "sandrose.sandrose.custom_script.retention_bonus.CustomRetentionBonus",
+	"Employee": "sandrose.sandrose.custom_script.custom_employee.CustomEmployee"
 }
 override_report = {
 	"Profit and Loss Statement": "sandrose.sandrose.report.p_and_l_statement.p_and_l_statement"
@@ -202,10 +165,18 @@ doc_events = {
     },
     "Employee": {
         "on_update": "sandrose.sandrose.custom_script.employee.update_vacation_details",
-        "validate": "sandrose.sandrose.custom_script.employee.set_first_day_of_joining"
+        "validate": [
+        "sandrose.sandrose.custom_script.employee.set_first_day_of_joining",
+        "sandrose.sandrose.custom_script.employee.validate_annual_leave_status"
+    ]
     },
     "Salary Structure Assignment": {
         "after_insert": "sandrose.sandrose.custom_script.salary_structure_assignment.calculate_gratuity_on_assignment"
+    },
+    "Leave Application": {
+        "on_update": "sandrose.sandrose.custom_script.leave_extension_attendance.sync_attendance_for_extension_hook",
+        "on_update_after_submit": "sandrose.sandrose.custom_script.leave_extension_attendance.sync_attendance_for_extension_hook",
+        "on_submit": "sandrose.sandrose.custom_script.leave_extension_attendance.submit_draft_attendance_for_leave"
     },
     "Attendance": {
         "before_submit": "sandrose.sandrose.custom_script.attendance.update_attendance_fields"
@@ -314,7 +285,53 @@ doc_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Retention Bonus-custom_project",
+                    "Retention Bonus-custom_cost_center",
+                    "Attendance-custom_project",
+                    "Attendance-custom_cost_center",
+                    "Employee-custom_first_day_of_joining",
+                    "Employee-custom_section_break_f7wph",
+                    "Employee-custom_vacation_details",
+                    "Employee-custom_rejoining",
+                    "Employee-custom_flight_rate",
+                    "Employee-custom_gratuity_rate",
+                    "Attendance-custom_overtime_hours",
+                    "Employee-custom_overtime_rate",
+                    "Attendance-custom_overtime_rate",
+                    "Attendance-custom_overtime_amount",
+                    "Attendance-custom_salary_amount",
+                    "Project-custom_total_cost",
+                    "Expense Entry-custom_employee_name",
+                    "Expense Entry-custom_license_plate",
+                    "Expense Entry-custom_vehicle_log_id",
+                    "Expense Entry-custom_journal_entry_id",
+                    "Purchase Order-custom_section_break_8w3q6",
+                    "Purchase Order-custom_item_transaction_details",
+                    "Sales Invoice-custom_section_break_dbm3p",
+                    "Sales Invoice-custom_item_transaction_details",
+                    "Quotation-custom_section_break_zqvlz",
+                    "Quotation-custom_item_transaction_details",
+                    "Employee-custom_labour_card_designation",
+                    "Leave Application-custom_original_leave_application",
+                    "Leave Application-custom_leave_extensions",
+                    "Leave Application-custom_actual_rejoin_date",
+                    "Leave Application-custom_medical_certificate"
+                ]
+            ]
+        ]
+    },
     {"dt": "Custom Field", "filters": [["dt", "=", "Employee"]]},
     {"dt": "DocType", "filters": [["name", "in", ["Preparation Record", "Preparation List"]]]},
     {"dt": "Server Script", "filters": [["name", "=", "Push Preparation to Employee Trackers"]]},
+]
+
+app_include_js = [
+    "/assets/sandrose/js/leave_history.js"
 ]
