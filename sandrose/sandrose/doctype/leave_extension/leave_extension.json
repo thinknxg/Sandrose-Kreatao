@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-22 10:08:32.981088",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "extended_to_date",
+  "reason",
+  "extended_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "extended_to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Extended To Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reason"
+  },
+  {
+   "default": "Today",
+   "fieldname": "extended_on",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Extended On"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-22 10:08:32.981088",
+ "modified_by": "Administrator",
+ "module": "Sandrose",
+ "name": "Leave Extension",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
