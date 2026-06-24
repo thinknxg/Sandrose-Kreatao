@@ -1,0 +1,24 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2026-06-16 00:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2026-06-16 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employees On Leave As On Date",
+ "owner": "Administrator",
+ "ref_doctype": "Leave Application",
+ "report_name": "Employees On Leave As On Date",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "HR Manager"},
+  {"role": "HR User"},
+  {"role": "Employee"}
+ ]
+}

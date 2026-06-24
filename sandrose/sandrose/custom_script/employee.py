@@ -1,4 +1,5 @@
 import frappe
+from frappe import _, throw
 from frappe.utils import date_diff
 
 
@@ -101,3 +102,31 @@ def update_gratuity_days(employee, row_name, date_of_exit):
     # frappe.db.commit()
 
     return no_of_days
+
+
+def validate_annual_leave_status(doc, method):
+    """Extend Employee status validation to include Annual Leave"""
+    if doc.status == "Annual Leave":
+        # Warn if other employees still report to this person
+        reports_to = frappe.db.get_all(
+            "Employee",
+            filters={"reports_to": doc.name, "status": "Active"},
+            fields=["name", "employee_name"],
+        )
+        if reports_to:
+            link_to_employees = [
+                frappe.utils.get_link_to_form("Employee", e.name, label=e.employee_name)
+                for e in reports_to
+            ]
+            message = _("The following employees are currently still reporting to {0}:").format(
+                frappe.bold(doc.employee_name)
+            )
+            message += "<br><br><ul><li>" + "</li><li>".join(link_to_employees)
+            message += "</li></ul><br>"
+            message += _("Please make sure the employees above report to another Active employee.")
+            frappe.throw(message, title=_("Cannot set Annual Leave"))
+
+        # Deactivate linked Sales Person
+        sales_person = frappe.db.get_value("Sales Person", {"Employee": doc.name})
+        if sales_person:
+            frappe.db.set_value("Sales Person", sales_person, "enabled", 0)
