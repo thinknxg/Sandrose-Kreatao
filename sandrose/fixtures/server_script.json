@@ -1,0 +1,21 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "After Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2026-04-30 23:28:49.700924",
+  "module": null,
+  "name": "Push Preparation to Employee Trackers",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Preparation List",
+  "script": "for row in doc.preparation_record:\r\n    if not row.employee:\r\n        continue\r\n\r\n    emp = frappe.get_doc(\"Employee\", row.employee)\r\n\r\n    emp.custom_passport_no = row.passport_no\r\n    emp.custom_passport_date_of_issue = row.passport_date_of_issue\r\n    emp.custom_passport_expiry_date_ = row.passport_expiry_date\r\n    emp.custom_civil_id_no = row.civil_id_no\r\n    emp.custom_civil_id_date_of_issue = row.civil_id_date_of_issue\r\n    emp.custom_civil_id_expiry_date = row.civil_id_expiry_date\r\n    emp.custom_mol_contract_no = row.mol_contract_no\r\n    emp.custom_mol_contract_date_of_issue = row.mol_contract_date_of_issue\r\n    emp.custom_mol_contract_expiry_date = row.mol_contract_expiry_date\r\n    emp.custom_medical = row.medical\r\n    emp.custom_medical_date_of_issue = row.medical_date_of_issue\r\n    emp.custom_medical_expiry_date = row.medical_expiry_date\r\n    emp.custom_bls = row.bls\r\n    emp.custom_bls_date_of_issue = row.bls_date_of_issue\r\n    emp.custom_bls_expiry_date = row.bls_expiry_date\r\n    emp.custom_acls = row.acls\r\n    emp.custom_acls_date_of_issue = row.acls_date_of_issue\r\n    emp.custom_acls_expiry_date = row.acls_expiry_date\r\n    emp.custom_nocexit_document = row.nocexit_document\r\n    emp.custom_noc_date_of_issue = row.noc_date_of_issue\r\n    emp.custom_noc_expiry_date = row.noc_expiry_date\r\n    emp.custom_data_flow_no = row.data_flow_no\r\n    emp.custom_data_flow_date_of_issue = row.data_flow_date_of_issue\r\n    emp.custom_data_flow_expiry_date = row.data_flow_expiry_date\r\n    emp.custom_visa_date_of_issue = row.visa_date_of_issue\r\n    emp.custom_visa_date_of_expiry = row.visa_date_of_expiry\r\n    emp.custom_prometric__pearson_vue = row.prometric__pearson_vue\r\n    emp.custom_prometric_date_of_issue = row.prometric_date_of_issue\r\n    emp.custom_prometric_expiry_date = row.prometric_expiry_date\r\n    emp.custom_police_clearance = row.police_clearance\r\n    emp.custom_police_clearance_date_of_issue = row.police_clearance_date_of_issue\r\n    emp.custom_police_clearance_expiry_date = row.police_clearance_expiry_date\r\n    emp.custom_license_no = row.license_no\r\n    emp.custom_license_date_of_issue = row.license_date_of_issue\r\n    emp.custom_license_expiry_date = row.license_expiry_date\r\n    emp.custom_cv = row.cv\r\n    emp.custom_cv_date_of_issue = row.cv_date_of_issue\r\n    emp.custom_cv_expiry_date = row.cv_expiry_date\r\n    emp.custom_signed_offer_letter = row.signed_offer_letter\r\n    emp.custom_offer_letter_date_of_issue = row.offer_letter_date_of_issue\r\n    emp.custom_offer_letter_expiry_date = row.offer_letter_expiry_date\r\n    emp.custom_highest_certificate = row.highest_certificate\r\n    emp.custom_certificate_date_of_issue = row.certificate_date_of_issue\r\n    emp.custom_certificate_expiry_date = row.certificate_expiry_date\r\n\r\n    emp.save(ignore_permissions=True)\r\n\r\nemp.save(ignore_permissions=True)",
+  "script_type": "DocType Event"
+ }
+]

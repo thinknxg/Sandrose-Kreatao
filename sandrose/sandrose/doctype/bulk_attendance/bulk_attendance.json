@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:B-ATT-{YYYY}-{####}",
+ "creation": "2025-04-09 15:02:28.232060",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_andj",
+  "from",
+  "month",
+  "category",
+  "employee",
+  "employee_name",
+  "exclude_holidays",
+  "column_break_mmuk",
+  "to",
+  "project",
+  "select_all",
+  "unselect_all",
+  "section_break_frqk",
+  "attendance_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bulk Attendance",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Employee Grade"
+  },
+  {
+   "fieldname": "section_break_andj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Date",
+   "label": "From"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "label": "To"
+  },
+  {
+   "fieldname": "section_break_frqk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "attendance_details",
+   "fieldtype": "Table",
+   "label": "Attendance Details",
+   "options": "Bulk Attendance Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "exclude_holidays",
+   "fieldtype": "Check",
+   "label": "Exclude Holidays"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Select",
+   "label": "Month",
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+  },
+  {
+   "fieldname": "column_break_mmuk",
+   "fieldtype": "Column Break"
+  },
+  {
+    "fieldname": "project",
+    "fieldtype": "Link",
+    "in_list_view": 1,
+    "label": "Project",
+    "options": "Project"
+   },
+   {
+    "fieldname": "select_all",
+    "fieldtype": "Button",
+    "label": "Select All"
+   },
+   {
+    "fieldname": "unselect_all",
+    "fieldtype": "Button",
+    "label": "Unselect All"
+   }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-14 16:00:55.582938",
+ "modified_by": "Administrator",
+ "module": "Sandrose",
+ "name": "Bulk Attendance",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
